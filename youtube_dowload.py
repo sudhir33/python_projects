@@ -2,11 +2,6 @@
 #playlist download
 #pip install pytube
 
-
-
-
-
-
 import os
 from pytube import Playlist
 url=input("Enter Playlist link")
@@ -18,15 +13,14 @@ os.mkdir(fn)
 k=0
 for video in playlist.videos:
     k+=1
-    stream = video.streams.get_by_itag(22)
     try:
+        stream = video.streams.get_by_itag(22)
         stream.download(fn+'/')
+        name=video.streams.get_by_itag(22).default_filename
+        os.rename(fn+'/'+name, fn+'/'+str(k)+"_"+name+'.mp4')
     except:
         print(k)
         
-    name=video.streams.get_by_itag(22).default_filename
-    os.rename(fn+'/'+name, fn+'/'+str(k)+"_"+name+'.mp4')
-    #break
     
 """
 
